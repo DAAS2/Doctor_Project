@@ -1,0 +1,30 @@
+{% extends "network/layout.html" %}
+{% block body %}
+    <div class="form-container">
+        <h2>Update Doctor</h2>
+    <form action="{% url 'update_doctor' doctor.id %}" method="post">
+        {% csrf_token %}
+
+        <label for="update_category">Select Category to Update:</label>
+        <select id="update_category" name="update_category">
+            <option selected disabled>Categories</option>
+            <option required value="name">Name</option>
+            <option required value="age">Age</option>
+            <option required value="email">Email</option>
+            <option required value="phone_number">Phone Number</option>
+            <option required value="working_status">Working Status</option>
+            <option required value="profession">Profession</option>
+            <option required value="country">Country</option>
+        </select>
+        <br><br>
+
+        <label for="new_value">New Value:</label>
+        <input type="text" id="new_value" name="new_value" required><br><br>
+
+        <input type="submit" value="Update Doctor">
+    </form>
+    </div>
+
+
+
+{% endblock %}

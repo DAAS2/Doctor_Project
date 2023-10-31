@@ -1,0 +1,30 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+    
+        <div id="container">
+            <div class="form-container sign-in">
+                <form class="form" action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    <h1>Sign In</h1>
+                    <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                    <input class="btn btn-primary button" type="submit" value="Login" placeholder="Login">
+                </form>
+            </div>
+        </div>
+{% endblock %}

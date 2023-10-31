@@ -1,0 +1,39 @@
+{% extends "network/layout.html" %}
+{% block body %}
+    <div class="form-container">
+        <h2>Add Doctor</h2>
+        <form action="{% url 'add_doctor' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input autocomplete="off" type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input autocomplete="off" type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input autocomplete="off" type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Phone Number:</label>
+                <input autocomplete="off" type="text" id="phone_number" name="phone_number" required>
+            </div>
+            <div class="form-group">
+                <label for="working_status">Working Status:</label>
+                <input autocomplete="off" type="text" id="working_status" name="working_status" required>
+            </div>
+            <div class="form-group">
+                <label for="profession">Profession:</label>
+                <input autocomplete="off" type="text" id="profession" name="profession" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <input autocomplete="off" type="text" id="country" name="country" required>
+            </div>
+
+            <button type="submit" class="button">Search</button>
+        </form>
+    </div>
+{% endblock %}

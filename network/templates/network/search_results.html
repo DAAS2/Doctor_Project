@@ -1,0 +1,39 @@
+{% extends "network/layout.html" %}
+{% block body %}
+    <div class="container">
+        <h1>Doctor Search</h1>
+        <form action="/doctor-search/" method="get">
+            <div class="form-group">
+                <label for="search_query">Search by Name, Email, Phone Number, Country, or Profession:</label>
+                <input type="text" class="form-control" name="search_query" id="search_query" placeholder="Enter name, email, phone number, country, or profession">
+            </div>
+            <button type="submit" class="button">Search</button>
+        </form>
+        <h1 class="my-4">Doctor List</h1>
+        {% for doctor in doctors %}
+            <div class="card doctor-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ doctor.name }}</h5>
+                    <p class="card-text">
+                        <strong>Age:</strong> {{ doctor.age }}<br>
+                        <strong>Email:</strong> {{ doctor.email }}<br>
+                        <strong>Phone Number:</strong> {{ doctor.phone_number }}<br>
+                        <strong>Working Status:</strong> {{ doctor.working_status }}<br>
+                        <strong>Profession:</strong> {{ doctor.profession }}<br>
+                        <strong>Country:</strong> {{ doctor.country }}<br>
+                        <strong>Timestamp:</strong> {{ doctor.timestamp }}
+                    </p>
+                    <form action="{% url 'update_doctor' doctor.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="button" value="">Update Doctor</button>
+                    </form>
+                    <form action="{% url 'delete_doctor' doctor.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="button buttonred" value="">Delete Doctor</button>
+                    </form>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

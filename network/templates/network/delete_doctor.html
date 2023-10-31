@@ -1,0 +1,47 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div class="container">
+    <h2>Remove Doctor</h2>
+    <form action="{% url 'delete_doctor' doctor.id %}" method="post">
+        {% csrf_token %}
+
+        <p>Are you sure you want to delete the following doctor?</p>
+        <p><strong>Doctor Name:</strong> {{ doctor.name }}</p>
+
+        <p>Please confirm the deletion by typing "DELETE" in the box below:</p>
+        <input type="text" id="confirmation" name="confirmation" required>
+
+        <input type="submit" value="Delete Doctor">
+    </form>
+</div>
+
+<div class="alert-box" id="alert-box" style="display:none;">
+    <p id="alert-message"></p>
+</div>
+
+<script>
+    function showAlert(message) {
+        var alertBox = document.getElementById("alert-box");
+        var alertMessage = document.getElementById("alert-message");
+        alertMessage.innerHTML = message;
+        alertBox.style.display = "block";
+
+        // Hide the alert after a few seconds
+        setTimeout(function() {
+            alertBox.style.display = "none";
+        }, 3000);
+    }
+
+    function confirmDelete() {
+        var confirmation = prompt("To confirm deletion, type 'DELETE' (all uppercase):");
+        if (confirmation !== "DELETE") {
+            showAlert("Deletion not confirmed. The doctor will not be deleted.");
+            window.location = "{% url 'index' %}";  // Redirect to the index page
+        }
+    }
+
+    // Call the confirmation function when the page loads
+    window.addEventListener("load", confirmDelete);
+</script>
+{% endblock %}
