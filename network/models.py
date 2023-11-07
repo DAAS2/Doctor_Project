@@ -18,5 +18,20 @@ class Doctor(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+    
+class Recovered_Doctor(models.Model):
+    user = models.TextField()
+    name = models.TextField()
+    age = models.IntegerField()
+    email = models.EmailField()
+    phone_number = models.TextField()
+    working_status = models.TextField()
+    profession = models.TextField()
+    country = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name}"
+    
 
 

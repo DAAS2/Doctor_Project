@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.db.models import Q
 from .forms import DoctorUpdateForm
 from django.contrib import messages
-from .models import User, Doctor
+from .models import User, Doctor, Recovered_Doctor
 
 
 def index(request):
@@ -44,6 +44,7 @@ def add_doctor(request):
 
 def update_doctor(request, doctor_id):
     doctor = Doctor.objects.get(pk=doctor_id)
+    
     if request.method == 'POST':
         # Get the selected category and new value from the form
         update_category = request.POST.get('update_category')
@@ -67,10 +68,17 @@ def update_doctor(request, doctor_id):
 
         # Save the updated doctor instance
         doctor.save()
+        
+        old_doctor = Recovered_Doctor(user=request.user, name=doctor.name, age=doctor.age, email=doctor.email, phone_number=doctor.phone_number, working_status=doctor.working_status, profession=doctor.profession, country=doctor.country)
+        old_doctor.save()
 
         return render(request, 'network/update_doctor.html', {'doctor': doctor})
-
-    return render(request, 'network/update_doctor.html', {'doctor': doctor})
+    
+    else:
+        return render(request, 'network/update_doctor.html', {'doctor': doctor})
+    
+    
+    
 
 def delete_doctor(request, doctor_id):
     doctor = Doctor.objects.get(pk=doctor_id)
@@ -86,6 +94,8 @@ def delete_doctor(request, doctor_id):
         confirmation = request.POST.get('confirmation')
         if confirmation == 'DELETE':
             # Perform the doctor deletion
+            old_doctor = Recovered_Doctor(user=request.user, name=doctor.name, age=doctor.age, email=doctor.email, phone_number=doctor.phone_number, working_status=doctor.working_status, profession=doctor.profession, country=doctor.country)
+            old_doctor.save()
             doctor.delete()
             messages.success(request, f"{doctor.name} has been successfully deleted.")
             return HttpResponseRedirect(reverse("index"))  # Redirect to a doctor list page
