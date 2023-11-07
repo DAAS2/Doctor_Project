@@ -1,4 +1,3 @@
-
 body {
   overflow-y: scroll; /* Vertical scrollbar */
   position: relative;
@@ -10,13 +9,11 @@ body {
   margin: 0;
   opacity: 10;
   padding: 0;
-  
 }
 
 
-/* Rest of your CSS styles... */
 
-/* Customize scrollbar appearance (optional) */
+
 ::-webkit-scrollbar {
   width: 12px; /* Width of the scrollbar */
 }
@@ -36,6 +33,7 @@ body {
       background-position: 100% 50%;
   }
 }
+
 
 body::before {
   content: "";
